@@ -1,0 +1,41 @@
+<!DOCTYPE htm>
+<htm lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pharmacy - Medicines</title>
+</head>
+<body>
+    <h1>Medicines</h1>
+
+    <!-- Search Form -->
+    <form method="POST" action="{{ url_for('search') }}">
+        <input type="text" name="med_id" placeholder="Search by Medicine ID or Name">
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1">
+        <tr>
+            <th>Medicine ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {% for medicine in medicines %}
+        <tr>
+            <td>{{ medicine[0] }}</td>  <!-- med_id -->
+            <td>{{ medicine[1] }}</td>  <!-- med_name -->
+            <td>{{ medicine[2] }}</td>  <!-- price -->
+            <td>{{ medicine[3] }}</td>  <!-- stock_quantity -->
+            <td>
+                <a href="{{ url_for('edit', med_id=medicine[0]) }}">Edit</a> |
+                <a href="{{ url_for('delete', med_id=medicine[0]) }}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="{{ url_for('insert') }}">Add New Medicine</a>
+</body>
+</htm>
